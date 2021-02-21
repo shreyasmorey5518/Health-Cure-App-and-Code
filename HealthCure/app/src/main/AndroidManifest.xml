@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uer.healthcure">
+
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/health_cure_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/health_cure_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Login"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity android:name=".AddUser"></activity>
+        <activity android:name=".AllotKit"></activity>
+        <activity android:name=".AllotKit2"></activity>
+        <activity android:name=".ViewEmployee"></activity>
+        <activity android:name=".ViewHealthDetails"></activity>
+        <activity android:name=".HeartRateDignosis"></activity>
+        <activity android:name=".OxyLevelDignosis"></activity>
+        <activity android:name=".TemperatureDignosis"></activity>
+        <activity android:name=".AtRisk"></activity>
+        <activity android:name=".GetAllDetails"></activity>
+        <activity android:name=".ViewUsers"></activity>
+        <activity android:name=".Prediction"></activity>
+        <activity android:name=".AddTraining"></activity>
+        <activity android:name=".PredictionPahse2"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    tools:showIn="@layout/app_bar_main"
+    android:background="#FFF2FF">
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginTop="40dp"
+        android:background="#00E676"
+        android:textColor="#000F00"
+        android:text="Get All Details"
+        android:textSize="20sp"/>
+    <Button
+        android:id="@+id/allusers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00E676"
+        android:layout_margin="30dp"
+        android:textColor="#000F00"
+        android:layout_marginTop="40dp"
+        android:text="View All Users"
+        android:textSize="20sp"/>
+    <Button
+        android:id="@+id/predictions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00E676"
+        android:layout_margin="30dp"
+        android:textColor="#000F00"
+        android:layout_marginTop="40dp"
+        android:text="Apply Predictions"
+        android:textSize="20sp"/>
+</LinearLayout>

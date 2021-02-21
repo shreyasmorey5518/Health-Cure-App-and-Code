@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF2FF">
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="20dp"
+        android:text="Inputted Parameters" />
+
+
+
+    <TextView
+        android:id="@+id/heartrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="HeartRate" />
+
+    <TextView
+        android:id="@+id/bp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Blood Pressurew" />
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Temperature" />
+    <TextView
+        android:id="@+id/oxygen1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Oxygen Level" />
+
+    <Button
+        android:id="@+id/applyprediction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply Prediction"
+        android:background="#00E676"
+        android:textColor="#000F00"
+        android:textSize="20sp"/>
+</LinearLayout>
