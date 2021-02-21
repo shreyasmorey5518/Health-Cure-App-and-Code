@@ -1,0 +1,115 @@
+// https://github.com/VU2MEV/MAX30100_NodeMCU_SPIFFS_IOT 
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+const char* ssid = "iBase";// 
+const char* password = "123456878"; 
+#include "DHT.h"
+#define DHTTYPE DHT11
+#define dht_dpin 0
+DHT dht(dht_dpin, DHTTYPE);
+#include "FS.h"
+#include <Wire.h>
+#include "MAX30100_PulseOximeter.h"
+#define REPORTING_PERIOD_MS 10000         // set to 10secs. Set as appropriate.
+PulseOximeter pox;
+float BPM, SpO2;
+uint32_t tsLastReport = 0;
+String hrData = "";
+unsigned long timems =0;          
+void onBeatDetected()
+{
+    Serial.println("Beat!");
+} 
+
+void setup() {
+  dht.begin();
+  Serial.begin(115200);
+
+ //  
+
+
+
+
+  //-----------------------------oxymeter work-------------
+  pinMode(2, OUTPUT); 
+ 
+  Serial.print("Initializing Pulse Oximeter..");
+ pinMode(16, OUTPUT);
+    if (!pox.begin())
+    {
+         Serial.println("FAILED");
+         for(;;);
+    }
+    else
+    {
+         Serial.println("SUCCESS");
+         digitalWrite(2, HIGH);   //Turn off in-built LED
+     }
+   pox.setOnBeatDetectedCallback(onBeatDetected);
+                                // The default current for the IR LED is 50mA and it could be changed by uncommenting the following line.
+   pox.setIRLedCurrent(MAX30100_LED_CURR_24MA);
+
+    if(!SPIFFS.begin()){
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+  // WiFi.begin(ssid, password);
+
+}
+ 
+void loop() {
+
+
+  pox.update();
+  BPM = pox.getHeartRate();
+  SpO2 = pox.getSpO2();
+  if (BPM < 40 || SpO2 == 0) {                                      // Neglects low readings and starts loop again.
+  Serial.println(F("Attach Fingure  properly"));
+  return;
+  }
+   if (millis() - tsLastReport > REPORTING_PERIOD_MS)
+  {
+  digitalWrite(2, LOW);                                              // Turn ON LED everytime reading is saved
+   // Cayenne.loop();
+  Serial.print("Heart rate: ");  Serial.print(BPM);
+  timems = millis();
+  hrData = String(timems) + String(",") + String(BPM) + String(",") + String(SpO2);                  //convert variable from integer to string
+  Serial.print(" bpm , SpO2:");  Serial.print(SpO2);  Serial.println(" %");
+  Serial.println (hrData);
+
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();         
+    //Serial.print("Current humidity = ");
+   // Serial.print(h);
+    //Serial.print("%  ");
+    Serial.print("temperature = ");
+    Serial.print(t); 
+    Serial.println("C  ");
+  digitalWrite(2, HIGH);                                             //Turn OFF
+  
+  tsLastReport = millis();
+
+
+
+   if(WiFi.status() != WL_CONNECTED) {
+                delay(500);
+                Serial.print("Not Connected");
+                WiFi.begin(ssid, password);
+              }else{
+                
+              Serial.println("");
+              Serial.println("WiFi connected");
+               HTTPClient http;
+    String url="http://mahavidyalay.in/Academic2021/HealthCareManagement/InsertSensorData.php?bpm="+String(BPM)+"&heartrate="+String(BPM)+"&temp="+String(t)+"&kitno=12&oxygen="+String(SpO2);
+    http.begin(url);
+    http.addHeader("Content-Type","text/plain");
+    int httpCode=http.GET();
+    String payload=http.getString();
+    Serial.println("While sending I received this from server : "+payload);
+    http.end();
+}
+  
+  
+  }
+  
+}
